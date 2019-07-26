@@ -6,42 +6,66 @@ class App extends Component {
   state = {
     persons: [
       {
-        name: "marco"
+        name: "Marco",
+        age: 24,
+        hobbie: "My hobbie is play video games"
+      },
+      {
+        name: "Sara",
+        age: 19,
+        hobbie: "My hobbie is read books"
       }
-    ]
+    ],
+    showPersons: false
   };
 
-  switchNameHandler = () => {
+  showOrNotPersons = () => {
+    if (this.state.persons.length === 0) {
+      this.setState({
+        persons: [
+          {
+            name: "Marco",
+            age: 24,
+            hobbie: "My hobbie is play video games"
+          },
+          {
+            name: "Sara",
+            age: 19,
+            hobbie: "My hobbie is read books"
+          }
+        ]
+      });
+    }
     this.setState({
-      persons: [
-        {
-          name: "ana"
-        }
-      ]
+      showPersons: !this.state.showPersons
     });
   };
 
-  newChangeHandler = event => {
+  deletePersons = index => {
+    let newPersons = [...this.state.persons];
+    newPersons.splice(index, 1);
     this.setState({
-      persons: [
-        {
-          name: event.target.value
-        }
-      ]
+      persons: newPersons
     });
   };
 
   render() {
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = this.state.persons.map((person, index) => (
+        <Person
+          name={person.name}
+          age={person.age}
+          click={() => this.deletePersons(index)}
+        />
+      ));
+    }
+
     return (
       <div className="App">
-        <h1>Hello!</h1>
-        <button onClick={this.switchNameHandler}>Switch name</button>
-        <Person
-          name={this.state.persons[0].name}
-          change={this.newChangeHandler}
-        >
-          My hobbie is playing video games
-        </Person>
+        <h1>React App!</h1>
+        <button onClick={this.showOrNotPersons}>Show persons</button>
+        {persons}
       </div>
     );
   }
