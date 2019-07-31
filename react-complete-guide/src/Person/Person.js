@@ -4,8 +4,8 @@ import "./Person.css";
 
 const Person = props => {
   const style = {
-    "@media (max-width: 500px)": {
-      width: "150px"
+    "@media (min-width: 500px)": {
+      width: "250px"
     }
   };
   return (

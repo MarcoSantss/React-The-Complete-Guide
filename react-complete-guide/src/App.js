@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.css"; //https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
 import Radium, { StyleRoot } from "radium";
 import Person from "./Person/Person";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 class App extends Component {
   state = {
@@ -69,12 +70,13 @@ class App extends Component {
     let persons = null;
     if (this.state.showPersons) {
       persons = this.state.persons.map((person, index) => (
-        <Person
-          name={person.name}
-          age={person.age}
-          click={() => this.deletePersons(index)}
-          key={person.id}
-        />
+        <ErrorBoundary key={person.id}>
+          <Person
+            name={person.name}
+            age={person.age}
+            click={() => this.deletePersons(index)}
+          />
+        </ErrorBoundary>
       ));
       style.backgroundColor = "red";
       style[":hover"] = {
