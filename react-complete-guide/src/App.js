@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import "./App.css";
+import Radium, { StyleRoot } from "radium";
 import Person from "./Person/Person";
 
 class App extends Component {
   state = {
     persons: [
       {
+        id: 1,
         name: "Marco",
         age: 24,
         hobbie: "My hobbie is play video games"
       },
       {
+        id: 2,
         name: "Sara",
         age: 19,
         hobbie: "My hobbie is read books"
@@ -50,6 +53,19 @@ class App extends Component {
   };
 
   render() {
+    const style = {
+      backgroundColor: "black",
+      color: "white",
+      font: "inherit",
+      border: "1px solid blue",
+      padding: "8px",
+      cursor: "pointer",
+      ":hover": {
+        backgroundColor: "green",
+        color: "black"
+      }
+    };
+
     let persons = null;
     if (this.state.showPersons) {
       persons = this.state.persons.map((person, index) => (
@@ -57,18 +73,35 @@ class App extends Component {
           name={person.name}
           age={person.age}
           click={() => this.deletePersons(index)}
+          key={person.id}
         />
       ));
+      style.backgroundColor = "red";
+      style[":hover"] = {
+        backgroundColor: "lightgreen",
+        color: "gray"
+      };
+    }
+
+    const classes = [];
+    if (this.state.persons.length <= 1) {
+      classes.push("red");
+    } else {
+      classes.push("gray");
     }
 
     return (
-      <div className="App">
-        <h1>React App!</h1>
-        <button onClick={this.showOrNotPersons}>Show persons</button>
-        {persons}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <h1 className={classes.join(" ")}>React App!</h1>
+          <button style={style} onClick={this.showOrNotPersons}>
+            Show persons
+          </button>
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
