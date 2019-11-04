@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const cockpit = props => {
+  // Similar to componentDidMount and componentDidUpdate:
+  // Executes for every render syncle
+  // We can have many useEffect
+  useEffect(() => {
+    console.log("[cockpit.js] useEffect");
+    // Http request...
+  }, [props.persons]); // Now useEffect should only be executed when props.persons change, if its an empty arrray, it will only execute one time in the beggining
+
   const style = {
     backgroundColor: "black",
     color: "white",
@@ -24,4 +32,5 @@ const cockpit = props => {
     </div>
   );
 };
+
 export default cockpit;

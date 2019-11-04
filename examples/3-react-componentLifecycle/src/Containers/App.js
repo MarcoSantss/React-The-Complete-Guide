@@ -30,8 +30,8 @@ class App extends Component {
     showPersons: false
   };
 
-  //Updates state from props changes
-  //creation: 2
+  // Updates state from props changes
+  // creation: 2
   static getDerivedStateFromProps(props, state) {
     console.log("[App.js] getDerivedStateFromProps", props);
     return state;
@@ -43,7 +43,8 @@ class App extends Component {
     return true;
   }
 
-  //creation: 4
+  // Do side-effects
+  // creation: 4
   componentDidMount() {
     console.log("[App.js] componentDidMount");
   }
@@ -78,7 +79,7 @@ class App extends Component {
     });
   };
 
-  //creation: 3
+  // creation: 3
   render() {
     console.log("[App.js] render");
     let persons = null;
